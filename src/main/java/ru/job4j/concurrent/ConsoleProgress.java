@@ -10,6 +10,7 @@ public class ConsoleProgress implements Runnable {
 			if (i >= process.length) {
 				i = 0;
 			}
+
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
