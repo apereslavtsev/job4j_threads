@@ -12,10 +12,11 @@ public class ConsoleProgress implements Runnable {
 			}
 			try {
 				Thread.sleep(500);
-			} catch (InterruptedException e) {			
+			} catch (InterruptedException e) {
 				e.printStackTrace();
+				break;
 			}			
-			System.out.print("\r load: " + process[i++]);			
+			System.out.print("\r load: " + process[i++]);
 		}
 	}
 	
