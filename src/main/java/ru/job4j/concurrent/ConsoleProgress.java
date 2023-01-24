@@ -13,8 +13,7 @@ public class ConsoleProgress implements Runnable {
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
-				e.printStackTrace();
-				break;
+				Thread.currentThread().interrupt();				
 			}			
 			System.out.print("\r load: " + process[i++]);
 		}
