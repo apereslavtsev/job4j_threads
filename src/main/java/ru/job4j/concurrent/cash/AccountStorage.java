@@ -12,24 +12,40 @@ public class AccountStorage {
     @GuardedBy("accounts")
     private final HashMap<Integer, Account> accounts = new HashMap<>();
 
-    public synchronized boolean add(Account account) {
-        return false;
+    public synchronized boolean add(Account account) {       
+        return accounts.putIfAbsent(account.id(), account) != null;        
     }
 
-    public boolean update(Account account) {
-        return false;
+    public synchronized boolean update(Account account) {
+        return accounts.computeIfPresent(
+                account.id(), (key, value) -> account) != null;        
     }
 
-    public boolean delete(int id) {
-        return false;
+    public synchronized boolean delete(int id) {
+        return accounts.remove(id) != null;         
     }
 
-    public Optional<Account> getById(int id) {
-        return Optional.empty();
+    public synchronized Optional<Account> getById(int id) {        
+        return Optional.ofNullable(accounts.get(id));
     }
 
-    public boolean transfer(int fromId, int toId, int amount) {
-        return false;
+    public synchronized boolean transfer(int fromId, int toId, int amount) {
+        boolean rsl = false;        
+        Account from = getById(fromId)
+                .orElseThrow(() -> new IllegalStateException(
+                        "Not found account by id = " + Integer.toString(fromId)));
+        Account to = getById(toId)
+                .orElseThrow(() -> new IllegalStateException(
+                        "Not found account by id = " + Integer.toString(toId)));
+        
+        if (amount > from.amount()) {
+            throw new IllegalArgumentException(
+                    "Transfer amount should be less then " + Integer.toString(from.amount()));
+        }         
+        update(new Account(fromId, from.amount() - amount));
+        update(new Account(toId, to.amount() + amount));
+        rsl = true;
+        return rsl;
     }
 
 }
