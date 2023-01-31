@@ -9,7 +9,7 @@ import net.jcip.annotations.ThreadSafe;
 @ThreadSafe
 public class AccountStorage {
     
-    @GuardedBy("accounts")
+    @GuardedBy("this")
     private final HashMap<Integer, Account> accounts = new HashMap<>();
 
     public synchronized boolean add(Account account) {       
@@ -29,8 +29,7 @@ public class AccountStorage {
         return Optional.ofNullable(accounts.get(id));
     }
 
-    public synchronized boolean transfer(int fromId, int toId, int amount) {
-        boolean rsl = false;        
+    public synchronized boolean transfer(int fromId, int toId, int amount) {                
         Account from = getById(fromId)
                 .orElseThrow(() -> new IllegalStateException(
                         "Not found account by id = " + Integer.toString(fromId)));
@@ -43,9 +42,8 @@ public class AccountStorage {
                     "Transfer amount should be less then " + Integer.toString(from.amount()));
         }         
         update(new Account(fromId, from.amount() - amount));
-        update(new Account(toId, to.amount() + amount));
-        rsl = true;
-        return rsl;
+        update(new Account(toId, to.amount() + amount));        
+        return true;
     }
 
 }
