@@ -2,8 +2,6 @@ package ru.job4j.concurrent.cash;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Test;
 
 class AccountStorageTest {
@@ -15,6 +13,13 @@ class AccountStorageTest {
         var firstAccount = storage.getById(1)
                 .orElseThrow(() -> new IllegalStateException("Not found account by id = 1"));
         assertThat(firstAccount.amount()).isEqualTo(100);
+    }  
+    
+    @Test
+    void whenAddRepeat() {
+        var storage = new AccountStorage();        
+        assertThat(storage.add(new Account(1, 100))).isTrue();
+        assertThat(storage.add(new Account(1, 200))).isFalse();
     }
 
     @Test
@@ -28,11 +33,23 @@ class AccountStorageTest {
     }
 
     @Test
+    void whenUpdateWrong() {
+        var storage = new AccountStorage();        
+        assertThat(storage.update(new Account(1, 200))).isFalse();          
+    }
+
+    @Test
     void whenDelete() {
         var storage = new AccountStorage();
         storage.add(new Account(1, 100));
         storage.delete(1);
         assertThat(storage.getById(1)).isEmpty();
+    }
+
+    @Test
+    void whenDeleteWrong() {
+        var storage = new AccountStorage();
+        assertThat(storage.delete(1)).isFalse();        
     }
 
     @Test
