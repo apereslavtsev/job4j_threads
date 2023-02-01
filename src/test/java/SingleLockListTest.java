@@ -23,8 +23,7 @@ class SingleLockListTest {
         assertThat(1).isEqualTo(it.next());
         assertThat(2).isEqualTo(it.next());
     }
-
-    @Disabled("example fail-safe iterator")
+    
     @Test
     public void whenFailSafeIterator() {
         var init = new ArrayList<Integer>();
@@ -34,17 +33,6 @@ class SingleLockListTest {
         list.add(2);
         assertThat(1).isEqualTo(it.next());
         assertThat(it.hasNext()).isFalse();
-    }
-
-    @Test
-    public void whenFailFastIterator() {
-        var init = new ArrayList<Integer>();
-        SingleLockList<Integer> list = new SingleLockList<>(init);
-        list.add(1);
-        var it = list.iterator();
-        assertThat(1).isEqualTo(it.next());
-        list.add(2);
-        assertThatThrownBy(() -> it.hasNext()).isInstanceOf(ConcurrentModificationException.class);
     }
 
     @Test

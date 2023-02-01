@@ -31,30 +31,8 @@ public class SingleLockList<T> implements Iterable<T> {
 
     @Override
     public synchronized Iterator<T> iterator() {
-        /*Fail-safe iterator example:
-         *return copy(list).iterator();*/
-        
-        /*Fail-fast iterator example:*/
-        return new Iterator<T>() {
-            private final int currentCheck = itCheck;
-            private final Iterator<T> it = list.iterator();
-             
-            @Override
-            public boolean hasNext() {
-                if (currentCheck != itCheck) {
-                    throw new ConcurrentModificationException();
-                }
-                return it.hasNext();
-            }
-
-            @Override
-            public T next() {
-                if (currentCheck != itCheck) {
-                    throw new ConcurrentModificationException();
-                }
-                return it.next();
-            }           
-        };    
+         return copy(list).iterator();
+    
     }
 
     private synchronized List<T> copy(List<T> origin) {

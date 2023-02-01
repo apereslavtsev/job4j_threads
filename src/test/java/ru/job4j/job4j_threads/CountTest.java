@@ -1,7 +1,6 @@
 package ru.job4j.job4j_threads;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
