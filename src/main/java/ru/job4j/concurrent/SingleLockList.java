@@ -1,27 +1,22 @@
 package ru.job4j.concurrent;
 
 import java.util.ArrayList;
-import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.List;
 import net.jcip.annotations.GuardedBy;
 import net.jcip.annotations.ThreadSafe;
+
 @ThreadSafe
 public class SingleLockList<T> implements Iterable<T> {
     
     @GuardedBy("this")
     private final List<T> list;
-    
-    @GuardedBy("this")
-    private volatile int itCheck;
 
     public SingleLockList(List<T> list) {
-        itCheck = 0;
         this.list = copy(list);        
     }
 
     public synchronized void add(T value) {
-        itCheck++;
         list.add(value);        
     }
 
