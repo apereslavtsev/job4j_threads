@@ -33,5 +33,4 @@ public class SimpleBlockingQueue<T> {
         this.notifyAll();
         return queue.poll();        
     }
-
 }
