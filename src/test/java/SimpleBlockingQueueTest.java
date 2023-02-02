@@ -3,7 +3,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import ru.job4j.concurrent.SimpleBlockingQueue;
 
@@ -18,7 +17,11 @@ class SimpleBlockingQueueTest {
             @Override
             public void run() {
                 rsl.add("before produce " + Thread.currentThread().getName());
-                block.offer(1); 
+                try {
+                    block.offer(1);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                } 
                 rsl.add("after produce " + Thread.currentThread().getName());                
             }
         };        
@@ -27,7 +30,11 @@ class SimpleBlockingQueueTest {
             @Override
             public void run() {
                 rsl.add("before consume " + Thread.currentThread().getName());
-                block.poll(); 
+                try {
+                    block.poll();
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                } 
                 rsl.add("after consume " + Thread.currentThread().getName());                
             }
         }; 
@@ -64,7 +71,11 @@ class SimpleBlockingQueueTest {
             @Override
             public void run() {
                 rsl.add("before produce " + Thread.currentThread().getName());
-                block.offer(1); 
+                try {
+                    block.offer(1);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                } 
                 rsl.add("after produce " + Thread.currentThread().getName());                
             }
         };        
@@ -73,7 +84,11 @@ class SimpleBlockingQueueTest {
             @Override
             public void run() {
                 rsl.add("before consume " + Thread.currentThread().getName());
-                block.poll(); 
+                try {
+                    block.poll();
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                } 
                 rsl.add("after consume " + Thread.currentThread().getName());                
             }
         }; 

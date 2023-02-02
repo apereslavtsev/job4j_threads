@@ -26,17 +26,17 @@ public class SimpleBlockingQueue<T> {
         }
     }
     
-    public synchronized void offer(T value) {
+    public synchronized void offer(T value) throws InterruptedException {
         while (queue.size() >= count) {
-            waitOrInterrupt();
+            this.wait();
         }
         queue.add(value);
         this.notifyAll();
     }
 
-    public synchronized T poll() {
+    public synchronized T poll() throws InterruptedException {
         while (queue.peek() == null) {
-            waitOrInterrupt();
+            this.wait();
         }
         this.notifyAll();
         return queue.poll();        
