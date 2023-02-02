@@ -18,14 +18,6 @@ public class SimpleBlockingQueue<T> {
         this.count = count;
     }
     
-    private synchronized void waitOrInterrupt() {
-        try {
-            this.wait();
-        } catch (InterruptedException e) {                
-            Thread.currentThread().interrupt();
-        }
-    }
-    
     public synchronized void offer(T value) throws InterruptedException {
         while (queue.size() >= count) {
             this.wait();
