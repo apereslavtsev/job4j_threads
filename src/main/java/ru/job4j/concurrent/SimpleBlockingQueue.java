@@ -27,10 +27,11 @@ public class SimpleBlockingQueue<T> {
     }
 
     public synchronized T poll() throws InterruptedException {
-        while (queue.peek() == null) {
+        while (queue.isEmpty()) {
             this.wait();
         }
+        T rsl = queue.poll();
         this.notifyAll();
-        return queue.poll();        
+        return rsl;       
     }
 }
