@@ -1,4 +1,4 @@
-package ru.job4j.concurrent.Cas;
+package ru.job4j.concurrent.сas;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+
+import ru.job4j.concurrent.сas.CASCount;
 
 class CASCountTest {
 

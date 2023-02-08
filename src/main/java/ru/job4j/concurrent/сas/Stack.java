@@ -1,4 +1,4 @@
-package ru.job4j.concurrent.Cas;
+package ru.job4j.concurrent.сas;
 
 public class Stack<T> {
     

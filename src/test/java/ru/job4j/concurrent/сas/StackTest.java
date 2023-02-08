@@ -1,10 +1,11 @@
-package ru.job4j.concurrent.Cas;
+package ru.job4j.concurrent.сas;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 
 import net.jcip.annotations.NotThreadSafe;
+import ru.job4j.concurrent.сas.Stack;
 
 @NotThreadSafe
 class StackTest {
