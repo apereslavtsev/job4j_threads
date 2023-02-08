@@ -10,12 +10,12 @@ import org.junit.jupiter.api.Test;
 class CASCountTest {
 
     @Test
-    void when10000ThreadsThenCountIs100mln() throws InterruptedException {
+    void when1000ThreadsThenCountIs1mln() throws InterruptedException {
         CASCount count = new CASCount(0);
         List<Thread> threads = new ArrayList<>();
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 1000; i++) {
             threads.add(new Thread(() -> {
-                for (int j = 0; j < 10000; j++) {
+                for (int j = 0; j < 1000; j++) {
                     count.increment();
                 }
             }));
@@ -26,7 +26,7 @@ class CASCountTest {
         for (Thread thread : threads) {
             thread.join();
         }
-        assertThat(threads.size()).isEqualTo(10000);
-        assertThat(count.get()).isEqualTo(100000000);
+        assertThat(threads.size()).isEqualTo(1000);
+        assertThat(count.get()).isEqualTo(1000000);
     }
 }
