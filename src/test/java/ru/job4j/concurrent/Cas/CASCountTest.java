@@ -11,21 +11,20 @@ class CASCountTest {
 
     @Test
     void when10000ThreadsThenCountIs100mln() throws InterruptedException {
-        CASCount count = new CASCount(0); 
+        CASCount count = new CASCount(0);
         List<Thread> threads = new ArrayList<>();
         for (int i = 0; i < 10000; i++) {
-            threads.add(new Thread(() -> 
-            {
+            threads.add(new Thread(() -> {
                 for (int j = 0; j < 10000; j++) {
                     count.increment();
                 }
-            }));            
+            }));
         }
-        
+
         for (Thread thread : threads) {
             thread.start();
         }
-        
+
         for (Thread thread : threads) {
             thread.join();
         }
