@@ -30,7 +30,7 @@ class CacheTest {
         updatedBase.setName("2");
         
         assertThat(cache.get(1).getName()).isEqualTo("1");
-        cache.update(updatedBase);
+        assertThat(cache.update(updatedBase)).isTrue();
         updatedBase.setName("3");
         
         assertThat(cache.get(1).getName()).isEqualTo("2");
