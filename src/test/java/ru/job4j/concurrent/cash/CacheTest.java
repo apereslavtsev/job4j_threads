@@ -46,5 +46,4 @@ class CacheTest {
         cache.delete(deletedBase);
         assertThat(cache.get(1)).isNull();
     }
-
 }
