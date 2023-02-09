@@ -14,7 +14,12 @@ public class CASCount {
     }
 
     public void increment() {
-        count.incrementAndGet();
+        int expectedValue;
+        int updateValue;
+        do {
+            expectedValue = count.get();
+            updateValue = expectedValue + 1;
+        } while (!count.compareAndSet(expectedValue, updateValue));
     }
 
     public int get() {
