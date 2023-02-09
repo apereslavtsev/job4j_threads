@@ -7,8 +7,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import ru.job4j.concurrent.сas.CASCount;
-
 class CASCountTest {
 
     @Test

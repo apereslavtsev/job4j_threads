@@ -6,9 +6,9 @@ import net.jcip.annotations.ThreadSafe;
 
 @ThreadSafe
 public class CASCount {
-    
+
     private final AtomicInteger count;
-    
+
     public CASCount(int count) {
         this.count = new AtomicInteger(count);
     }
