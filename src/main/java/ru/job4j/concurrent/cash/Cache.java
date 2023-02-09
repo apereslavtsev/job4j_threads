@@ -33,4 +33,5 @@ public class Cache {
     public Base get(int id) {
         return memory.get(id);
     }
+    
 }

@@ -20,7 +20,6 @@ class CacheTest {
         assertThatThrownBy(() -> cache.update(new Base(1, 2))).
         isInstanceOf(OptimisticException.class);
     }
-    
 
     @Test
     void whenUpdateAndImmutableOk() {       
