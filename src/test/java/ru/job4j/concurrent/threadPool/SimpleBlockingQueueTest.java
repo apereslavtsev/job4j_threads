@@ -1,3 +1,4 @@
+package ru.job4j.concurrent.threadPool;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
@@ -5,7 +6,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.Test;
-import ru.job4j.concurrent.SimpleBlockingQueue;
 
 class SimpleBlockingQueueTest {
 

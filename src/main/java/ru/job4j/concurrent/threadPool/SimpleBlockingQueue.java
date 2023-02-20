@@ -1,4 +1,4 @@
-package ru.job4j.concurrent;
+package ru.job4j.concurrent.threadPool;
 
 import java.util.LinkedList;
 import java.util.Queue;

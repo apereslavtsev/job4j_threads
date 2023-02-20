@@ -1,5 +1,7 @@
 package ru.job4j.concurrent;
 
+import ru.job4j.concurrent.threadPool.SimpleBlockingQueue;
+
 public class ParallelSearch {
     
     public static void main(String[] args) {
