@@ -9,17 +9,14 @@ import net.jcip.annotations.ThreadSafe;
 @ThreadSafe
 public class ThreadPool {
     
-    int size;   
+    private int size = Runtime.getRuntime().availableProcessors();   
     
     @GuardedBy("this")
-    private final SimpleBlockingQueue<Runnable> tasks;
+    private final SimpleBlockingQueue<Runnable> tasks = new SimpleBlockingQueue<>(size);
     
     private final List<Thread> threads = new LinkedList<>();    
 
     public ThreadPool() {
-        size = Runtime.getRuntime().availableProcessors();
-        tasks = new SimpleBlockingQueue<>(size);
-        
         for (int i = 0; i < size; i++) {
             threads.add(new Thread(() -> {
                 while (!Thread.currentThread().isInterrupted()) {
@@ -27,30 +24,18 @@ public class ThreadPool {
                         Runnable task = tasks.poll();
                         task.run();
                     } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
                     }
                 }
             }));
         }
-        
         for (Thread thread : threads) {
             thread.start();
         }
     }
 
-    public synchronized void work(Runnable job) {
-        try {
-            tasks.offer(job);
-        } catch (InterruptedException e) {
-        }
-    }
-    
-    public synchronized void waitTasks() {
-        while (!tasks.isEmpty()) {
-            try {
-                Thread.currentThread().sleep(10);
-            } catch (InterruptedException e) {
-            }
-        }        
+    public synchronized void work(Runnable job) throws InterruptedException {
+        tasks.offer(job);
     }
 
     public synchronized void shutdown() {

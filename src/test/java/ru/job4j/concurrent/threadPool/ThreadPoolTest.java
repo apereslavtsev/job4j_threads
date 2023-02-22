@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 class ThreadPoolTest {
 
     @Test
-    void when1000Increment() {
+    void when1000Increment() throws InterruptedException {
         ThreadPool threadPool = new ThreadPool();
         AtomicInteger atInt = new AtomicInteger();
         
@@ -17,8 +17,8 @@ class ThreadPoolTest {
                 atInt.incrementAndGet();
             });
         }
-        threadPool.waitTasks();
         threadPool.shutdown();
+        Thread.currentThread().sleep(20);
         assertThat(atInt.get()).isEqualTo(1000);
     }
 
