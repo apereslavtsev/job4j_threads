@@ -1,5 +1,7 @@
 package ru.job4j.concurrent.threadPool;
 
+import java.util.Objects;
+
 public class User {
     
     private String username;
@@ -7,7 +9,6 @@ public class User {
     private String email;
     
     public User(String username, String email) {
-        super();
         this.username = username;
         this.email = email;
     }
@@ -28,4 +29,30 @@ public class User {
         this.email = email;
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(email, username);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+            
+        if (obj == null) {
+            return false;
+        }
+            
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+            
+        User other = (User) obj;
+        return Objects.equals(email, other.email) 
+                && Objects.equals(username, other.username);
+    }
+    
+    
+    
 }
