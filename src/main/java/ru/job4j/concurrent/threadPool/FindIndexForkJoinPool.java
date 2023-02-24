@@ -2,20 +2,21 @@ package ru.job4j.concurrent.threadPool;
 
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
 
-public class FindIndexForkJoinPool extends RecursiveTask<Integer> {
+public class FindIndexForkJoinPool<T> extends RecursiveTask<Integer> {
     
-    private final Object[] array;    
+    private final T[] array;    
     
     private final int from;
     
     private final int to;
     
-    private final Object objToSearch;
+    private final T objToSearch;
 
     
-    public FindIndexForkJoinPool(Object[] array, int from, int to, Object objToSearch) {
+    public FindIndexForkJoinPool(T[] array, int from, int to, T objToSearch) {
         this.array = array;
         this.from = from;
         this.to = to;
@@ -41,14 +42,13 @@ public class FindIndexForkJoinPool extends RecursiveTask<Integer> {
         firstFinderIndexInArray.fork();
         secondFinderIndexInArray.fork();
         
-        int first = firstFinderIndexInArray.join(); 
-        int second = secondFinderIndexInArray.join(); 
-        if (first > -1) {
-            return first;
-        } else if (second > -1) {
-            return second;
-        } else {
-            return -1;
-        }
+        return Math.max((int) firstFinderIndexInArray.join(),(int) secondFinderIndexInArray.join());
+    }
+    
+    public static Integer find<T>(T[] arr, T objToSearch) {
+        ForkJoinPool forkJoinPool = ForkJoinPool.commonPool();
+        return forkJoinPool.invoke(
+                new FindIndexForkJoinPool(arr, 0, arr.length, objToSearch));
+        
     }
 }
