@@ -20,8 +20,8 @@ class FindIndexForkJoinPoolTest {
         ForkJoinPool forkJoinPool = ForkJoinPool.commonPool();
         User userToSearch = new User("name3", "email3"); 
         
-        assertThat(forkJoinPool.invoke(
-                new FindIndexForkJoinPool(array, 0, size, userToSearch)))
+        assertThat(
+                 FindIndexForkJoinPool.findIndex(array, userToSearch))
         .isEqualTo(3);
     }
     
@@ -37,8 +37,8 @@ class FindIndexForkJoinPoolTest {
         ForkJoinPool forkJoinPool = ForkJoinPool.commonPool();
         User userToSearch = new User("name7700", "email7700"); 
         
-        assertThat(forkJoinPool.invoke(
-                new FindIndexForkJoinPool(array, 0, size, userToSearch)))
+        assertThat(
+                FindIndexForkJoinPool.findIndex(array, userToSearch))
         .isEqualTo(7700);
     }
     
@@ -52,12 +52,11 @@ class FindIndexForkJoinPoolTest {
 
         ForkJoinPool forkJoinPool = ForkJoinPool.commonPool();
         
-        assertThat(forkJoinPool.invoke(
-                new FindIndexForkJoinPool(array, 0, size, "String9999")))
+        assertThat(
+                FindIndexForkJoinPool.findIndex(array, "String9999"))
         .isEqualTo(9999);
     }
-    
-    
+
     @Test
     void whenSizeIs10000AndTypeIsStringThenParallelSearchNotFound() {
         int size = 10000;
@@ -68,11 +67,10 @@ class FindIndexForkJoinPoolTest {
 
         ForkJoinPool forkJoinPool = ForkJoinPool.commonPool();
         
-        assertThat(forkJoinPool.invoke(
-                new FindIndexForkJoinPool(array, 0, size, "String")))
+        assertThat(
+                FindIndexForkJoinPool.findIndex(array, "String"))
         .isEqualTo(-1);
     }
-    
 
     @Test
     void whenSizeIs9AndTypeIsUserThenLinearSearchNotFound() {
@@ -86,9 +84,8 @@ class FindIndexForkJoinPoolTest {
         ForkJoinPool forkJoinPool = ForkJoinPool.commonPool();
         User userToSearch = new User("nameNotFound", "emailNotFound"); 
         
-        assertThat(forkJoinPool.invoke(
-                new FindIndexForkJoinPool(array, 0, size, userToSearch)))
+        assertThat(
+                FindIndexForkJoinPool.findIndex(array, userToSearch))
         .isEqualTo(-1);
     }
-
 }
