@@ -70,15 +70,13 @@ public class RolColSum {
         return rsl;
     }
 
-    public static CompletableFuture<Sums> getTask(int[][] matrix, int i) {
-        return CompletableFuture.supplyAsync(() -> sumsI(matrix, i));
-    }
-
     public static Sums[] asyncSum(int[][] matrix) throws ExecutionException, InterruptedException {
         Map<Integer, CompletableFuture<Sums>> futures = new HashMap<>();
 
         for (int i = 0; i < matrix.length; i++) {
-            futures.put(i, getTask(matrix, i));
+            int finalI = i;
+            futures.put(i,
+                CompletableFuture.supplyAsync(() -> sumsI(matrix, finalI)));
         }
 
         Sums[] sums = new Sums[matrix.length];
