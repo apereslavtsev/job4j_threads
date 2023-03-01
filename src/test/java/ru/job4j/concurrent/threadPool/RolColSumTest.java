@@ -15,10 +15,10 @@ class RolColSumTest {
                 {4, 5, 6},
                 {7, 8, 9},
         };
-        RolColSum.Sums[] rsl = new RolColSum.Sums[] {
-                new RolColSum.Sums(6, 12),
-                new RolColSum.Sums(15, 15),
-                new RolColSum.Sums(24, 18)
+        Sums[] rsl = new Sums[] {
+                new Sums(6, 12),
+                new Sums(15, 15),
+                new Sums(24, 18)
         };
 
         assertThat(RolColSum.sum(matrix))
@@ -31,10 +31,10 @@ class RolColSumTest {
                 {4, 5, 6},
                 {7, 8, 9},
         };
-        RolColSum.Sums[] rsl = new RolColSum.Sums[] {
-                new RolColSum.Sums(6, 12),
-                new RolColSum.Sums(15, 15),
-                new RolColSum.Sums(24, 18)
+        Sums[] rsl = new Sums[] {
+                new Sums(6, 12),
+                new Sums(15, 15),
+                new Sums(24, 18)
         };
 
         assertThat(RolColSum.asyncSum(matrix))
